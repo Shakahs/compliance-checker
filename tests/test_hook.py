@@ -83,6 +83,8 @@ def test_hook_blocks_violating_pair(tmp_path, console_script_installed):
     )
     assert "rule=descope" in result.stderr or "rule=dependency" in result.stderr
     assert "Compliance check failed" in result.stderr
+    status = json.loads(result.stdout.strip())
+    assert "DENIED" in status["systemMessage"]
 
 
 def test_hook_allows_clean_pair(tmp_path, console_script_installed):
@@ -99,3 +101,5 @@ def test_hook_allows_clean_pair(tmp_path, console_script_installed):
         f"expected exit 0 for clean pair, got {result.returncode}\n"
         f"stderr: {result.stderr}\nstdout: {result.stdout}"
     )
+    status = json.loads(result.stdout.strip())
+    assert "APPROVED" in status["systemMessage"]

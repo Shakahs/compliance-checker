@@ -79,6 +79,11 @@ def format_feedback(flagged_verdicts) -> str:
     return "\n".join(lines) + "\n"
 
 
+def emit_status(message: str) -> None:
+    """Print a JSON status block Claude Code surfaces to the user."""
+    print(json.dumps({"systemMessage": message}))
+
+
 def main() -> None:
     try:
         payload = json.load(sys.stdin)
@@ -87,22 +92,30 @@ def main() -> None:
 
     transcript_path = payload.get("transcript_path")
     if not transcript_path:
+        emit_status("compliance-checker: skipped (no transcript_path)")
         sys.exit(0)
 
     path = Path(transcript_path)
     if not path.exists():
+        emit_status(f"compliance-checker: skipped (transcript missing: {path})")
         sys.exit(0)
 
     pair = extract_last_pair(path)
     if pair is None:
+        emit_status("compliance-checker: skipped (no completed user/assistant pair)")
         sys.exit(0)
 
     user_request, assistant_response = pair
     verdicts = check_pair(user_request, assistant_response)
     flagged = [v for v in verdicts if v.flagged]
+
     if not flagged:
+        scores = ", ".join(f"{v.rule}={v.top_score:.2f}" for v in verdicts)
+        emit_status(f"compliance-checker: APPROVED ({scores})")
         sys.exit(0)
 
+    rules_hit = ", ".join(f"{v.rule}={v.top_score:.2f}" for v in flagged)
+    emit_status(f"compliance-checker: DENIED (flagged: {rules_hit})")
     sys.stderr.write(format_feedback(flagged))
     sys.exit(2)
 

@@ -1,6 +1,6 @@
 [project]
 name = "compliance-checker"
-version = "0.1.1"
+version = "0.1.2"
 description = "Zero-shot NLI compliance checks for Claude Code assistant turns"
 requires-python = ">=3.12"
 dependencies = [
