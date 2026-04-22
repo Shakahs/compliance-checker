@@ -1,0 +1,16 @@
+{
+  "description": "Compliance checker - flags descoping and dependency-dismissal in assistant output",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/run_check.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

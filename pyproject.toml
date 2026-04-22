@@ -1,0 +1,30 @@
+[project]
+name = "compliance-checker"
+version = "0.1.0"
+description = "Zero-shot NLI compliance checks for Claude Code assistant turns"
+requires-python = ">=3.12"
+dependencies = [
+    "transformers==5.6.0",
+    "torch==2.11.0",
+    "python-dotenv>=1.0",
+]
+
+[project.scripts]
+compliance-check-hook = "compliance_checker.hook:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["compliance_checker"]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
