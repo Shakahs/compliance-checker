@@ -1,6 +1,6 @@
 {
   "name": "compliance-checker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Detects descoping and unauthorized dependency-dismissal in assistant turns using a zero-shot NLI classifier",
   "author": {
     "name": "shakahs"
