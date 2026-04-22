@@ -1,0 +1,11 @@
+{
+  "name": "shakahs",
+  "owner": { "name": "shakahs" },
+  "plugins": [
+    {
+      "name": "compliance-checker",
+      "source": "./plugin",
+      "description": "Blocks descoping and dependency-dismissal in assistant turns via a zero-shot NLI classifier"
+    }
+  ]
+}
