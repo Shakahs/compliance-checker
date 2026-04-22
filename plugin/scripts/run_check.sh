@@ -11,6 +11,6 @@ fi
 
 # Override the source (e.g. during local dev) by setting COMPLIANCE_CHECKER_SRC
 # to a path or VCS URL understood by `uvx --from`.
-SRC="${COMPLIANCE_CHECKER_SRC:-git+https://github.com/shakahs/compliance-checker@main}"
+SRC="${COMPLIANCE_CHECKER_SRC:-git+https://github.com/shakahs/compliance-checker@master}"
 
 exec uvx --from "$SRC" compliance-check-hook
